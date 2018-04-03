@@ -22,7 +22,7 @@ class TeamsGetterService
      *
      * @return Team[] Массив моделей команд
      */
-    public function getAllTeams($teamsRaw)
+    private function getAllTeams($teamsRaw)
     {
         $teams = [];
         foreach ($teamsRaw as $k => $team) {
@@ -38,19 +38,19 @@ class TeamsGetterService
         }
 
         return $teams;
-   }
+    }
 
     /**
      * @param int $teamId
      *
      * @return Team|null
      */
-   public function getTeamById($teamId)
-   {
-       if (isset($this->teamRepository[$teamId])) {
-           return $this->teamRepository[$teamId];
-       }
+    public function getTeamById($teamId)
+    {
+        if (isset($this->teamRepository[$teamId])) {
+            return $this->teamRepository[$teamId];
+        }
 
-       return null;
-   }
+        return null;
+    }
 }
