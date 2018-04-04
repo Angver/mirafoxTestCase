@@ -25,5 +25,3 @@ function match(int $firstTeamId, int $secondTeamId): array
         round($secondTeamPower->getAttackPower() * $firsTeamPower->getDefencePower() * $averageGoals),
     ];
 }
-
-print_r(match(1, 10));
