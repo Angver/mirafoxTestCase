@@ -3,8 +3,10 @@
 namespace App\Mirafox\Model;
 
 
-class BaseModel
+class BaseModel implements BaseModelInterface
 {
+    use BaseModelTrait;
+
     /**
      * @param array $rawModel
      */
