@@ -1,7 +1,7 @@
 <?php
 require_once 'autoloader.php';
 
-use App\Teams\Service\TeamsGetterService;
+use App\Mirafox\Service\TeamsGetterService;
 
 function match($firstTeamId, $secondTeamId)
 {
@@ -9,6 +9,7 @@ function match($firstTeamId, $secondTeamId)
 
     $firstTeam = $teamsGetterService->getTeamById($firstTeamId);
     $secondTeam = $teamsGetterService->getTeamById($secondTeamId);
+
 
     return [];
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Teams\Model;
+namespace App\Mirafox\Model;
 
 
-class Team
+class Team extends BaseModel
 {
     /**
      * @var string
@@ -40,19 +40,10 @@ class Team
      */
     private $goalsSkipped;
 
-    public function __construct($rawModel = [])
-    {
-        if (!empty($rawModel) && (is_array($rawModel) || $rawModel instanceof \Traversable)) {
-            foreach ($rawModel as $key => $value) {
-                $this->$key = $value;
-            }
-        }
-    }
-
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -60,7 +51,7 @@ class Team
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -68,7 +59,7 @@ class Team
     /**
      * @return int
      */
-    public function getGames()
+    public function getGames(): int
     {
         return $this->games;
     }
@@ -76,7 +67,7 @@ class Team
     /**
      * @param int $games
      */
-    public function setGames($games)
+    public function setGames(int $games): void
     {
         $this->games = $games;
     }
@@ -84,7 +75,7 @@ class Team
     /**
      * @return int
      */
-    public function getWin()
+    public function getWin(): int
     {
         return $this->win;
     }
@@ -92,7 +83,7 @@ class Team
     /**
      * @param int $win
      */
-    public function setWin($win)
+    public function setWin(int $win): void
     {
         $this->win = $win;
     }
@@ -100,7 +91,7 @@ class Team
     /**
      * @return int
      */
-    public function getDraw()
+    public function getDraw(): int
     {
         return $this->draw;
     }
@@ -108,7 +99,7 @@ class Team
     /**
      * @param int $draw
      */
-    public function setDraw($draw)
+    public function setDraw(int $draw): void
     {
         $this->draw = $draw;
     }
@@ -116,7 +107,7 @@ class Team
     /**
      * @return int
      */
-    public function getDefeat()
+    public function getDefeat(): int
     {
         return $this->defeat;
     }
@@ -124,7 +115,7 @@ class Team
     /**
      * @param int $defeat
      */
-    public function setDefeat($defeat)
+    public function setDefeat(int $defeat): void
     {
         $this->defeat = $defeat;
     }
@@ -132,7 +123,7 @@ class Team
     /**
      * @return int
      */
-    public function getGoalsScored()
+    public function getGoalsScored(): int
     {
         return $this->goalsScored;
     }
@@ -140,7 +131,7 @@ class Team
     /**
      * @param int $goalsScored
      */
-    public function setGoalsScored($goalsScored)
+    public function setGoalsScored(int $goalsScored): void
     {
         $this->goalsScored = $goalsScored;
     }
@@ -148,7 +139,7 @@ class Team
     /**
      * @return int
      */
-    public function getGoalsSkipped()
+    public function getGoalsSkipped(): int
     {
         return $this->goalsSkipped;
     }
@@ -156,7 +147,7 @@ class Team
     /**
      * @param int $goalsSkipped
      */
-    public function setGoalsSkipped($goalsSkipped)
+    public function setGoalsSkipped(int $goalsSkipped): void
     {
         $this->goalsSkipped = $goalsSkipped;
     }

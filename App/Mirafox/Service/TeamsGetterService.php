@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Teams\Service;
+namespace App\Mirafox\Service;
 
 
-use App\Teams\Model\Team;
+use App\Mirafox\Model\Team;
 
 class TeamsGetterService
 {
@@ -12,7 +12,7 @@ class TeamsGetterService
      */
     private $teamRepository;
 
-    public function __construct($teamsRaw)
+    public function __construct(array $teamsRaw)
     {
         $this->teamRepository = $this->getAllTeams($teamsRaw);
     }
@@ -22,7 +22,7 @@ class TeamsGetterService
      *
      * @return Team[] Массив моделей команд
      */
-    private function getAllTeams($teamsRaw)
+    private function getAllTeams(array $teamsRaw): array
     {
         $teams = [];
         foreach ($teamsRaw as $k => $team) {
@@ -45,12 +45,28 @@ class TeamsGetterService
      *
      * @return Team|null
      */
-    public function getTeamById($teamId)
+    public function getTeamById(int $teamId): Team
     {
         if (isset($this->teamRepository[$teamId])) {
             return $this->teamRepository[$teamId];
         }
 
         return null;
+    }
+
+    public function getAverageGoalsScoredPerGame(): float
+    {
+        $totalTeamsGoalsScored = 0;
+        $totalTeamsGames = 0;
+        /**
+         * @var Team $team
+         */
+        foreach ($this->teamRepository as $team)
+        {
+            $totalTeamsGoalsScored += $team->getGoalsScored();
+            $totalTeamsGames += $team->getGames();
+        }
+
+        return round($totalTeamsGoalsScored / $totalTeamsGames, 2);
     }
 }
