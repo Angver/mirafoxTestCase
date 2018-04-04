@@ -3,6 +3,7 @@
 namespace App\Mirafox\Service;
 
 use App\Mirafox\Model\Team;
+use App\Mirafox\Model\TeamPower;
 
 class TeamPowerCalculatorService
 {
@@ -11,28 +12,38 @@ class TeamPowerCalculatorService
      */
     private $team;
 
-    public function __construct(Team $team)
+    /**
+     * @var float
+     */
+    private $averageGoals;
+
+    public function __construct(Team $team, float $averageGoals)
     {
         $this->team = $team;
+        $this->averageGoals = $averageGoals;
     }
 
     /**
-     * @param float $averageGoals
-     *
      * @return float
      */
-    public function getAttackPower(float $averageGoals): float
+    private function getAttackPower(): float
     {
-        return round($this->team->getGoalsScored() / $this->team->getGames() / $averageGoals, 2);
+        return round($this->team->getGoalsScored() / $this->team->getGames() / $this->averageGoals, 2);
     }
 
     /**
-     * @param float $averageGoals
-     *
      * @return float
      */
-    public function getDefencePower(float $averageGoals): float
+    private function getDefencePower(): float
     {
-        return round($this->team->getGoalsSkipped() / $this->team->getGames() / $averageGoals, 2);
+        return round($this->team->getGoalsSkipped() / $this->team->getGames() / $this->averageGoals, 2);
+    }
+
+    public function getTeamPower(): TeamPower
+    {
+        return new TeamPower([
+            'attackPower' => $this->getAttackPower(),
+            'defencePower' => $this->getDefencePower(),
+        ]);
     }
 }

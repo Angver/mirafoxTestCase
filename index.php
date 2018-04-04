@@ -1,17 +1,29 @@
 <?php
 require_once 'autoloader.php';
 
+use App\Mirafox\Service\TeamPowerCalculatorService;
 use App\Mirafox\Service\TeamsGetterService;
 
-function match($firstTeamId, $secondTeamId)
+function match(int $firstTeamId, int $secondTeamId): array
 {
     $teamsGetterService = new TeamsGetterService(require_once 'data.php');
 
-    $firstTeam = $teamsGetterService->getTeamById($firstTeamId);
-    $secondTeam = $teamsGetterService->getTeamById($secondTeamId);
+    $averageGoals = $teamsGetterService->getAverageGoalsScoredPerGame();
+    $firstTeamPowerCalculatorService = new TeamPowerCalculatorService(
+        $teamsGetterService->getTeamById($firstTeamId),
+        $averageGoals
+    );
+    $firsTeamPower = $firstTeamPowerCalculatorService->getTeamPower();
+    $secondTeamPowerCalculatorService = new TeamPowerCalculatorService(
+        $teamsGetterService->getTeamById($secondTeamId),
+        $averageGoals
+    );
+    $secondTeamPower = $secondTeamPowerCalculatorService->getTeamPower();
 
-
-    return [];
+    return [
+        round($firsTeamPower->getAttackPower() * $secondTeamPower->getDefencePower() * $averageGoals),
+        round($secondTeamPower->getAttackPower() * $firsTeamPower->getDefencePower() * $averageGoals),
+    ];
 }
 
-match(1, 2);
+print_r(match(1, 10));
